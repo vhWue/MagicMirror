@@ -9,26 +9,26 @@
  * @returns {Promise} resolved when the fetch is done. The response headers is placed in a headers-property (provided the response does not allready contain a headers-property).
  */
 async function performWebRequest(url, type = "json", useCorsProxy = false, requestHeaders = undefined, expectedResponseHeaders = undefined) {
-	const request = {};
-	if (useCorsProxy) {
-		url = getCorsUrl(url, requestHeaders, expectedResponseHeaders);
-	} else {
-		request.headers = getHeadersToSend(requestHeaders);
-	}
-	const response = await fetch(url, request);
-	const data = await response.text();
+    const request = {};
+    if (useCorsProxy) {
+        url = getCorsUrl(url, requestHeaders, expectedResponseHeaders);
+    } else {
+        request.headers = getHeadersToSend(requestHeaders);
+    }
+    const response = await fetch(url, request);
+    const data = await response.text();
 
-	if (type === "xml") {
-		return new DOMParser().parseFromString(data, "text/html");
-	} else {
-		if (!data || !data.length > 0) return undefined;
+    if (type === "xml") {
+        return new DOMParser().parseFromString(data, "text/html");
+    } else {
+        if (!data || !data.length > 0) return undefined;
 
-		const dataResponse = JSON.parse(data);
-		if (!dataResponse.headers) {
-			dataResponse.headers = getHeadersFromResponse(expectedResponseHeaders, response);
-		}
-		return dataResponse;
-	}
+        const dataResponse = JSON.parse(data);
+        if (!dataResponse.headers) {
+            dataResponse.headers = getHeadersFromResponse(expectedResponseHeaders, response);
+        }
+        return dataResponse;
+    }
 }
 
 /**
@@ -40,26 +40,26 @@ async function performWebRequest(url, type = "json", useCorsProxy = false, reque
  * @returns {string} to be used as URL when calling CORS-method on server.
  */
 const getCorsUrl = function (url, requestHeaders, expectedResponseHeaders) {
-	if (!url || url.length < 1) {
-		throw new Error(`Invalid URL: ${url}`);
-	} else {
-		let corsUrl = `${location.protocol}//${location.host}/cors?`;
+    if (!url || url.length < 1) {
+        throw new Error(`Invalid URL: ${url}`);
+    } else {
+        let corsUrl = `${location.protocol}//${location.host}/cors?`;
 
-		const requestHeaderString = getRequestHeaderString(requestHeaders);
-		if (requestHeaderString) corsUrl = `${corsUrl}sendheaders=${requestHeaderString}`;
+        const requestHeaderString = getRequestHeaderString(requestHeaders);
+        if (requestHeaderString) corsUrl = `${corsUrl}sendheaders=${requestHeaderString}`;
 
-		const expectedResponseHeadersString = getExpectedResponseHeadersString(expectedResponseHeaders);
-		if (requestHeaderString && expectedResponseHeadersString) {
-			corsUrl = `${corsUrl}&expectedheaders=${expectedResponseHeadersString}`;
-		} else if (expectedResponseHeadersString) {
-			corsUrl = `${corsUrl}expectedheaders=${expectedResponseHeadersString}`;
-		}
+        const expectedResponseHeadersString = getExpectedResponseHeadersString(expectedResponseHeaders);
+        if (requestHeaderString && expectedResponseHeadersString) {
+            corsUrl = `${corsUrl}&expectedheaders=${expectedResponseHeadersString}`;
+        } else if (expectedResponseHeadersString) {
+            corsUrl = `${corsUrl}expectedheaders=${expectedResponseHeadersString}`;
+        }
 
-		if (requestHeaderString || expectedResponseHeadersString) {
-			return `${corsUrl}&url=${url}`;
-		}
-		return `${corsUrl}url=${url}`;
-	}
+        if (requestHeaderString || expectedResponseHeadersString) {
+            return `${corsUrl}&url=${url}`;
+        }
+        return `${corsUrl}url=${url}`;
+    }
 };
 
 /**
@@ -69,18 +69,18 @@ const getCorsUrl = function (url, requestHeaders, expectedResponseHeaders) {
  * @returns {string} to be used as request-headers component in CORS URL.
  */
 const getRequestHeaderString = function (requestHeaders) {
-	let requestHeaderString = "";
-	if (requestHeaders) {
-		for (const header of requestHeaders) {
-			if (requestHeaderString.length === 0) {
-				requestHeaderString = `${header.name}:${encodeURIComponent(header.value)}`;
-			} else {
-				requestHeaderString = `${requestHeaderString},${header.name}:${encodeURIComponent(header.value)}`;
-			}
-		}
-		return requestHeaderString;
-	}
-	return undefined;
+    let requestHeaderString = "";
+    if (requestHeaders) {
+        for (const header of requestHeaders) {
+            if (requestHeaderString.length === 0) {
+                requestHeaderString = `${header.name}:${encodeURIComponent(header.value)}`;
+            } else {
+                requestHeaderString = `${requestHeaderString},${header.name}:${encodeURIComponent(header.value)}`;
+            }
+        }
+        return requestHeaderString;
+    }
+    return undefined;
 };
 
 /**
@@ -90,14 +90,14 @@ const getRequestHeaderString = function (requestHeaders) {
  * @returns {object} An object specifying name and value of the headers.
  */
 const getHeadersToSend = (requestHeaders) => {
-	const headersToSend = {};
-	if (requestHeaders) {
-		for (const header of requestHeaders) {
-			headersToSend[header.name] = header.value;
-		}
-	}
+    const headersToSend = {};
+    if (requestHeaders) {
+        for (const header of requestHeaders) {
+            headersToSend[header.name] = header.value;
+        }
+    }
 
-	return headersToSend;
+    return headersToSend;
 };
 
 /**
@@ -107,18 +107,18 @@ const getHeadersToSend = (requestHeaders) => {
  * @returns {string} to be used as the expected HTTP-headers component in CORS URL.
  */
 const getExpectedResponseHeadersString = function (expectedResponseHeaders) {
-	let expectedResponseHeadersString = "";
-	if (expectedResponseHeaders) {
-		for (const header of expectedResponseHeaders) {
-			if (expectedResponseHeadersString.length === 0) {
-				expectedResponseHeadersString = `${header}`;
-			} else {
-				expectedResponseHeadersString = `${expectedResponseHeadersString},${header}`;
-			}
-		}
-		return expectedResponseHeaders;
-	}
-	return undefined;
+    let expectedResponseHeadersString = "";
+    if (expectedResponseHeaders) {
+        for (const header of expectedResponseHeaders) {
+            if (expectedResponseHeadersString.length === 0) {
+                expectedResponseHeadersString = `${header}`;
+            } else {
+                expectedResponseHeadersString = `${expectedResponseHeadersString},${header}`;
+            }
+        }
+        return expectedResponseHeaders;
+    }
+    return undefined;
 };
 
 /**
@@ -129,19 +129,19 @@ const getExpectedResponseHeadersString = function (expectedResponseHeaders) {
  * @returns {string} to be used as the expected HTTP-headers component in CORS URL.
  */
 const getHeadersFromResponse = (expectedResponseHeaders, response) => {
-	const responseHeaders = [];
+    const responseHeaders = [];
 
-	if (expectedResponseHeaders) {
-		for (const header of expectedResponseHeaders) {
-			const headerValue = response.headers.get(header);
-			responseHeaders.push({ name: header, value: headerValue });
-		}
-	}
+    if (expectedResponseHeaders) {
+        for (const header of expectedResponseHeaders) {
+            const headerValue = response.headers.get(header);
+            responseHeaders.push({ name: header, value: headerValue });
+        }
+    }
 
-	return responseHeaders;
+    return responseHeaders;
 };
 
 if (typeof module !== "undefined")
-	module.exports = {
-		performWebRequest
-	};
+    module.exports = {
+        performWebRequest
+    };
