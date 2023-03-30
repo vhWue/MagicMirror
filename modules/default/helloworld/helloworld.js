@@ -9,8 +9,12 @@ Module.register("helloworld", {
     defaults: {
         text: "Hello World!",
         input: "Das ist mein eigener Input",
-        arr: ["haus", "garten", "essen"],
-        position: 0
+        arr: ["haus", "garten"]
+    },
+
+    start: function () {
+        this.arr = ["haus", "garten", "essen"];
+        this.test = "das ist ein test";
     },
 
     getTemplate: function () {
@@ -21,20 +25,25 @@ Module.register("helloworld", {
         return this.config;
     },
 
-    notificationReceived: function (notification, payload, sender) {
-        if (notification === "DOM_OBJECTS_CREATED") {
+    getDom: function () {
 
-            setInterval(() => {
-                this.updateDom();
-                console.log(this.config.position++);
-                this.config.position++
-            }, 1000);
+        const container = document.createElement("div");
+        container.id = "container";
+        container.innerHTML = "Das ist ein Container";
 
-
+        return container
+    },
 
 
+    notificationReceived(notification, payload, sender) {
+        switch (notification) {
+            case "DOM_OBJECTS_CREATED":
+                this.config.text = "Das ist der neue text";
+                this.config.arr.push("neues Item")
+                setTimeout(() => {
+                    this.updateDom(2000)
+                }, 5000)
         }
-
-
     }
+
 })
