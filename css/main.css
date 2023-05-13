@@ -2,7 +2,11 @@
   --color-text: #999;
   --color-text-dimmed: #666;
   --color-text-bright: #fff;
-  --color-background: #000;
+ // --color-background: #000;
+  --color-background:#303841;
+
+
+
 
   --font-primary: "Roboto Condensed";
   --font-secondary: "Roboto";
@@ -22,17 +26,31 @@
   --gap-modules: 30px;
 }
 
+@font-face {
+  font-family: "MyFont";
+  font-style: normal;
+  font-weight: 100;
+  src:
+    local("SF-Pro-Display-Light"),
+    url("/fonts/SF-Pro-Display-Light.otf") format("truetype");
+}
+
 html {
   cursor: none;
   overflow: hidden;
   background: var(--color-background);
   user-select: none;
   font-size: var(--font-size);
+
+
+
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
+
+
 
 body {
   margin: var(--gap-body-top) var(--gap-body-right) var(--gap-body-bottom) var(--gap-body-left);
@@ -40,6 +58,7 @@ body {
   height: calc(100% - var(--gap-body-top) - var(--gap-body-bottom));
   width: calc(100% - var(--gap-body-right) - var(--gap-body-left));
   background: var(--color-background);
+  background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-primary), sans-serif;
   font-weight: 400;

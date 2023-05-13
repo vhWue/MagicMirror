@@ -1,6 +1,19 @@
-<!-- Use ` | safe` to allow html tages within the text string.
-https://mozilla.github.io/nunjucks/templating.html#autoescaping -->
-<div>{{ text |safe }}</div>
-{% for variable in arr %}
-    <div>{{ variable |safe }}</div>
-{% endfor %}
+<table>
+    <thead>
+        <tr>
+            <th class="country_name-cell">{{country|safe}}</th>
+            <th class="code-cell">Code</th>
+            <th class="pop96-cell">
+                1996 pop.</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="country_name-cell">Albania</td>
+            <td class="code-cell">ALB</td>
+            <td class="pop96-cell">
+                3,341,043
+            </td>
+        </tr>
+    </tbody>
+</table>
