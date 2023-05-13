@@ -1,0 +1,136 @@
+root{
+  --bg-green:#78c350;
+
+
+}
+
+
+.grid-wrapper{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-template-areas:
+    "top-left top-left-center top-right-center top-right"
+    "mid-left mid-left mid-right mid-right"
+    "mid-lower mid-lower mid-lower mid-lower"
+    "bottom-left bottom-left-center bottom-right bottom-right";
+
+
+  gap:20px ;
+  height: 100%;
+  width: 100%;
+
+}
+
+.grid-wrapper>*{
+  background-color:#36404a ;
+  color: white;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.top-left{
+  grid-area: top-left;
+  //background-color: var(--bg-green);
+  background-color: #78c350;
+}
+.top-left-center{
+  grid-area: top-left-center;
+  background-color: #f06292;
+}
+.top-right-center{
+  grid-area: top-right-center;
+  background-color: #45bbe0;
+}
+.top-right{
+  grid-area: top-right;
+  background-color: #8892d6;
+}
+
+
+.mid-left{
+  background-color: #303841;
+  grid-area: mid-left;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-areas:
+    "card card"
+    "info-chart-1 info-chart-2";
+  gap:20px
+}
+
+.card,.info-chart-1,.info-chart-2{
+  background-color: #36404a;
+  border-radius: 10px;
+}
+
+.card{
+  grid-area: card;
+}
+
+.info-chart-1{
+  grid-area: info-chart-1;
+}
+
+.info-chart-2{
+  grid-area: info-chart-2;
+}
+
+
+
+.mid-right{
+  grid-area: mid-right;
+  padding: 0 0;
+  display: flex;
+ align-items: flex-end;
+}
+
+
+.mid-lower{
+  background-color: #303841;
+  grid-area: mid-lower;
+  display: flex;
+  gap: 20px;
+
+
+}
+.mid-lower>*{
+  background-color: #36404a;
+  //border: 2px solid red;
+  flex-grow: 1;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+
+.bottom-left{
+  grid-area: bottom-left;
+}
+.bottom-left-center{
+  grid-area: bottom-left-center;
+}
+.bottom-right{
+  grid-area: bottom-right;
+}
+
+.bottom-left,.bottom-right,.bottom-left-center{
+  padding: 80px 0;
+
+}
+
+canvas{
+
+  padding: 0 40px 0 0;
+
+
+}
+
+.mid-right:after{
+  //content: 'Statistics';
+  content: '';
+  position: absolute;
+  color: white;
+  transform: translate(40px,-380px);
+  font-size: 16px;
+}
+
+

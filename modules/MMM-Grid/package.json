@@ -1,0 +1,16 @@
+{
+  "name": "mmm-grid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MMM-Grid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apexcharts": "^3.35.1",
+    "chart.js": "^4.3.0"
+  }
+}
